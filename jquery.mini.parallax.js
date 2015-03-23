@@ -6,11 +6,11 @@
 
 ;(function ( $, window, document, undefined ) {
     var pluginName = 'miniParallax';
-    var ticking = false;
     var win = $(window);
 
     var defaults = {
-            inset : 1
+            inset : 1,
+            speed : 0.5
         };
 
     function Plugin( element, options ) {
@@ -20,42 +20,87 @@
         this._defaults = defaults;
         this._name = pluginName;
 
+        this.__ = {
+            initial : {}
+        };
+
+        this.ticking = false;
+        this.fetchedTransformValue = false;
+        this.fetchedBackgroundValue = false;
+
         this.init();
     }
 
     Plugin.prototype.init = function () {
         window.requestAnimFrame = (function(){
-        return  window.requestAnimationFrame       ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame    ||
-        function( callback ){
-        window.setTimeout(callback, 1000 / 60);
-        };
+            return  window.requestAnimationFrame       ||
+                    window.webkitRequestAnimationFrame ||
+                    window.mozRequestAnimationFrame    ||
+                    function( callback ){
+                        window.setTimeout(callback, 1000 / 60);
+                    };
         })();
+
 
         var _this = this;
 
-        requestAnimFrame(_this.parallax);
-        // _this.parallax();
+        requestAnimFrame(function(){
+            _this.parallax();
+        });
+
         $(window).scroll(function() {
-            // console.log('ticking ' + ticking);
-            if (!ticking) {
-                requestAnimFrame(_this.parallax);
-                //_this.parallax();
-                ticking = true;
+            if (!_this.ticking) {
+                requestAnimFrame(function(){
+                    _this.parallax();
+                });
+
+                _this.ticking = true;
             }
         });
+    };
+
+    Plugin.prototype.getTransformValue = function(parallaxItem){
+        var _this = this;
+        var getTransform = $(parallaxItem).css('transform');
+        
+        if(getTransform !== 'none') {
+            getTransform = getTransform.match(/(-?[0-9\.]+)/g);
+            _this.__.initial.tY = parseInt(getTransform[5], 10);
+        }
+        else {
+            _this.__.initial.tY = 0;
+        }
+
+        _this.fetchedTransformValue = true;
+    };
+
+    Plugin.prototype.getBpValue = function(){
+        var _this = this;
+        var backgroundPos = $(_this.element).css('backgroundPosition').split(" ");
+        var xPos = backgroundPos[0];
+        var yPos = backgroundPos[1];
+
+        if(yPos.indexOf('%') !== -1) {
+            yPos = parseFloat(yPos.substr(0, (yPos.length - 1))).toFixed(2);
+            yPos = ($(_this.element).outerHeight() / 100) * yPos;
+        }
+        else {
+            yPos = parseFloat(yPos.replace(/[^0-9.]/g, '')).toFixed(2);
+        }
+
+        _this.__.initial.bpX = xPos;
+        _this.__.initial.bpY = yPos;
+
+        _this.fetchedBackgroundValue = true;
     };
 
     Plugin.prototype.parallax = function () {
         var _this = this;
         var parallaxSection = _this.element;
 
-        var a = _this.test();
+        if (_this.inViewport()) {
 
-        if (a) {
-
-            var speed = 0.5;
+            var speed = _this.options.speed;
             var wTop = $(window).scrollTop();
             var wHeight = $(window).height();
             var amount = 0;
@@ -68,20 +113,28 @@
             eHeight = $(parallaxSection).height();
 
             var parallaxItem = $(parallaxSection).data('parallax-item');
-            if (typeof parallaxItem !== undefined && parallaxItem !== null) {
+            if (typeof parallaxItem !== 'undefined' && parallaxItem !== null) {
                 amount = -(($(parallaxSection).height() + $(parallaxSection).offset().top) - (wHeight + wTop)) * speed;
+                
+                if(!_this.fetchedTransformValue) {
+                    _this.getTransformValue(parallaxItem);
+                }
+                amount -= _this.__.initial.tY;
+
                 $(parallaxItem).css('transform', 'translateY(' + amount + 'px)');
             } else {
-                // for background parallax
-                // amount  = - (eHeight - wTop) * speed;
+                amount  = - (eHeight - wTop) * speed;
+
+                if(!_this.fetchedBackgroundValue) {
+                    _this.getBpValue();
+                }
+                amount -= _this.__.initial.bpY;
+
+                $(parallaxSection).css('background-position', _this.__.initial.bpX + ' ' + amount + 'px');
             }
         }
 
-        ticking = false;
-    };
-
-    Plugin.prototype.test = function(){
-        return true;
+        _this.ticking = false;
     };
 
     Plugin.prototype.inViewport = function(){

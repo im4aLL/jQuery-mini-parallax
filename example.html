@@ -36,6 +36,8 @@
         <p>
             Only n KB
             <br>
+            Faster 
+            <br>
             Lightweight
             <br>
             Just meet the requirement you need
@@ -56,6 +58,9 @@
     <script>
         jQuery(document).ready(function($) {
             $('.section-two').miniParallax();
+            $('.section-one').miniParallax({
+                speed: 0.3
+            });
         });
     </script>
 
