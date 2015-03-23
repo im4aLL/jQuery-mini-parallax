@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery mini parallax</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>jQuery mini parallax <span>A lightweight jQuery plugin to add parallax effect</span></h1>
+    </header>
+
+    <section class="section-one">
+        <p class="lead">Image is in background!</p>
+    </section>
+
+    <section>
+        <div class="container">
+            <h3>Header title</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore est, tenetur dolor totam ullam ducimus provident vero fuga neque itaque omnis quaerat ipsam accusamus, explicabo modi, similique ea error. Inventore.
+            <br><br>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa exercitationem blanditiis, at esse, corporis quasi eius voluptas eum incidunt. Quidem consectetur optio ipsa corporis, omnis deserunt doloremque veniam ab error aliquam mollitia cum laborum eos recusandae maxime eius explicabo, quam? Ducimus dolorem commodi magnam quae aspernatur. Labore sint sit doloribus, nesciunt nulla quisquam dolore, esse totam, nihil, cupiditate quibusdam sapiente nam! Excepturi animi deserunt consectetur eos inventore ad minima esse at debitis laborum, dolore tenetur laudantium vero eligendi! Neque similique facere cumque iste in! Vitae eos delectus asperiores, aperiam dolorem dignissimos vero iste nobis nostrum ipsam molestias ducimus iusto praesentium earum quam veniam non illum officiis fugit.</p>
+        </div>
+    </section>
+
+    <section class="section-two" data-parallax-item=".parallax">
+        <p class="lead">Image is position absoluted!</p>
+        <figure><img class="parallax" src="images/2.jpg" alt=""></figure>
+    </section>
+
+    <footer>
+        <p>
+            Only n KB
+            <br>
+            Lightweight
+            <br>
+            Just meet the requirement you need
+            <br>
+            Smart animation using rAF (requestAnimationFrame)
+            <br>
+            wanna try it?
+            <br>
+            <a href="#">download here!</a>
+        </p>
+
+        <small>Its been developed for small usage only, like small parallax effect in website. <br>If you full website is based on parallax then use <a href="http://keithclark.co.uk/articles/pure-css-parallax-websites/" target="_blank">CSS3 parallax solution</a> for better animation. <br>CSS3 parallax solution has some side effects, so please be aware of that!</small>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="jquery.mini.parallax.js"></script>
+
+    <script>
+        jQuery(document).ready(function($) {
+            $('.section-two').miniParallax();
+        });
+    </script>
+
+</body>
+</html>
