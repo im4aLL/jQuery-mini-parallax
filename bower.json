@@ -1,0 +1,21 @@
+{
+  "name": "jQuery-mini-parallax",
+  "version": "v1.0.0",
+  "homepage": "https://github.com/im4aLL/jQuery-mini-parallax",
+  "authors": [
+    "Hadi <me@habibhadi.com>"
+  ],
+  "description": "A lightweight jQuery plugin to add parallax effect in less than 3 KB",
+  "main": "jquery.mini.parallax.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "parallax",
+    "lightweight",
+    "small",
+    "plugin",
+    "jquery"
+  ],
+  "license": "MIT"
+}

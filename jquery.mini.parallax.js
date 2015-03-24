@@ -1,6 +1,7 @@
 /*!
  * jQuery mini parallax
  * @author: me@habibhadi.com
+ * @url: https://github.com/im4aLL/jQuery-mini-parallax
  * @version v1.0.0
  */
 
