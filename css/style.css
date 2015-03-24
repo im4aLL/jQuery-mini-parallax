@@ -1,9 +1,10 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: 'Raleway', sans-serif; font-size: 14px; line-height: 26px; color: #2c3e50; }
 
-header { background: #ecf0f1; display: flex; align-items: center; justify-content: center; height: 100vh; }
+header { background: #5080ad; background: -webkit-linear-gradient(-35deg, #5080ad, #624686 75%); background: linear-gradient(125deg, #5080ad, #624686 75%); color: #fff; display: flex; align-items: center; justify-content: center; height: 100vh; position: relative; }
 header h1 { text-align: center; font-size: 36px; line-height: 42px }
 header h1 span { display: block; font-size: 22px; }
+.scroll-down { position: absolute; bottom: 30px; left: 50%; color: #fff; transform: translate(-50%, -50%); }
 
 .container { width: 960px; margin: 0 auto; }
 section { position: relative; min-height: 300px; }
